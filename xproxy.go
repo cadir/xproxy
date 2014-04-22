@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// TODO: Detect ip address and automaticall switch these
+// TODO: Detect ip address and automatically switch these
 //const kLocalUrl = "http://localhost:8081"
 const kLocalUrl = "http://ec2-54-201-152-136.us-west-2.compute.amazonaws.com"
 
