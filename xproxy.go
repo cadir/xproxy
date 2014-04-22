@@ -1,15 +1,15 @@
+// TODO: Add SSL support and certificate
 package main
 
 import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
-// TODO: Detect ip address and automatically switch these
-//const kLocalUrl = "http://localhost:8081"
-const kLocalUrl = "http://ec2-54-201-152-136.us-west-2.compute.amazonaws.com"
+var kLocalUrl string
 
 func copyHeaders(dst, src http.Header) {
 	for k, _ := range dst {
@@ -44,8 +44,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	port := ""
+	kLocalUrl = "http://ec2-54-201-152-136.us-west-2.compute.amazonaws.com"
+	hostname, _ := os.Hostname()
+	if strings.Contains(hostname, "Mac") {
+		kLocalUrl = "http://localhost:8081"
+		port = ":8081"
+	}
 	http.HandleFunc("/", handler)
-	err := http.ListenAndServe("", nil) // ":8081" for local
+	err := http.ListenAndServe(port, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
