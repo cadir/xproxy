@@ -45,7 +45,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", handler)
-	err := http.ListenAndServe(":8081", nil)
+	err := http.ListenAndServe("", nil) // ":8081" for local
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
